@@ -6,26 +6,39 @@
     <title>IRCA Sistem SRL | Enterprise Diagnostic</title>
     <script src="https://tailwindcss.com"></script>
     <style>
-        .gradient-bg { background: linear-gradient(135deg, #0b0f19 0%, #111827 100%); }
-        .tab-active { border-color: #3b82f6; color: #3b82f6; background-color: rgba(59, 130, 246, 0.05); }
+        /* IRCA Corporate Aesthetic Theme Rules */
+        .irca-bg { background: linear-gradient(135deg, #090d16 0%, #111827 100%); }
+        .irca-panel { background-color: rgba(17, 24, 39, 0.95); border-color: rgba(31, 41, 55, 0.8); }
+        .tab-active { border-color: #3b82f6; color: #3b82f6; background-color: rgba(59, 130, 246, 0.08); }
     </style>
 </head>
-<body class="gradient-bg text-gray-100 min-h-screen font-sans antialiased">
+<body class="irca-bg text-gray-100 min-h-screen font-sans antialiased">
 
-    <!-- Header / Branding Banner -->
-    <header class="p-6 max-w-xl mx-auto flex flex-col items-center border-b border-slate-800/80 gap-1 text-center">
-        <h1 class="text-2xl font-black tracking-wider text-white">IRCA SISTEM SRL</h1>
-        <p class="text-xs text-blue-400 font-bold tracking-widest uppercase">Integrated Enterprise Solutions Platform</p>
+    <!-- Header / Branding Banner with Native Raw Asset Sourcing -->
+    <header class="p-6 max-w-xl mx-auto flex flex-col items-center border-b border-gray-800/60 gap-3 text-center">
+        <div class="w-full flex justify-center py-2">
+            <!-- Directly rendering your raw image repository file asset -->
+            <img src="https://githubusercontent.com" 
+                 alt="IRCA Corporate Logo" 
+                 class="h-16 w-auto object-contain drop-shadow-[0_4px_12px_rgba(59,130,246,0.15)]"
+                 onerror="this.style.display='none'; document.getElementById('fallback-logo').classList.remove('hidden');">
+            <!-- Fallback design layer in case raw branch caching drops -->
+            <div id="fallback-logo" class="hidden text-2xl font-black tracking-wider text-white">IRCA SISTEM</div>
+        </div>
+        <div class="space-y-0.5">
+            <h1 class="text-xs text-blue-400 font-extrabold tracking-widest uppercase">Integrated Enterprise Solutions Platform</h1>
+            <p class="text-[10px] text-gray-500 uppercase font-mono font-bold">Tech Expansion &amp; Facility Operations Division</p>
+        </div>
     </header>
 
     <!-- Tab Selection Navigation Component -->
-    <nav class="max-w-xl mx-auto px-6 mt-6">
-        <div class="grid grid-cols-2 bg-slate-900/90 rounded-xl p-1.5 border border-slate-800/60 shadow-inner">
-            <button id="btnTabIT" onclick="switchTab('IT')" class="py-3 text-sm font-bold tracking-wide rounded-lg text-slate-400 border border-transparent transition-all tab-active">
+    <nav class="max-w-xl mx-auto px-6 mt-5">
+        <div class="grid grid-cols-2 bg-slate-950/80 rounded-xl p-1.5 border border-gray-800/50 shadow-inner">
+            <button id="btnTabIT" onclick="switchTab('IT')" class="py-3 text-sm font-bold tracking-wide rounded-lg text-gray-400 border border-transparent transition-all tab-active">
                 💻 IT Division
             </button>
-            <button id="btnTabFac" onclick="switchTab('FACILITIES')" class="py-3 text-sm font-bold tracking-wide rounded-lg text-slate-400 border border-transparent transition-all">
-                🏢 Facilities & RSVTI
+            <button id="btnTabFac" onclick="switchTab('FACILITIES')" class="py-3 text-sm font-bold tracking-wide rounded-lg text-gray-400 border border-transparent transition-all">
+                🏢 Facilities &amp; RSVTI
             </button>
         </div>
     </nav>
@@ -35,45 +48,45 @@
         
         <!-- ================= TAB 1: IT MATRIX PANEL ================= -->
         <section id="panelIT" class="space-y-6">
-            <div class="bg-slate-900/80 backdrop-blur-md border border-slate-800 p-5 rounded-xl space-y-5 shadow-xl">
-                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">IT Infrastructure Controls</h3>
+            <div class="irca-panel border p-5 rounded-xl space-y-5 shadow-2xl">
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">IT Infrastructure Controls</h3>
                 
                 <!-- IT Metric 1 -->
                 <div class="space-y-2">
                     <div class="flex justify-between text-sm">
-                        <label class="text-slate-300 font-medium">Workforce Volume (Employees)</label>
+                        <label class="text-gray-300 font-medium">Workforce Volume (Employees)</label>
                         <span id="valEmployees" class="text-blue-400 font-bold font-mono">50</span>
                     </div>
-                    <input type="range" id="inpEmployees" min="5" max="250" value="50" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
+                    <input type="range" id="inpEmployees" min="5" max="250" value="50" class="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
                 </div>
 
                 <!-- IT Metric 2 -->
                 <div class="space-y-2">
                     <div class="flex justify-between text-sm">
-                        <label class="text-slate-300 font-medium">Network Drops / System Crashes (Monthly)</label>
+                        <label class="text-gray-300 font-medium">Network Drops / System Crashes (Monthly)</label>
                         <span id="valDrops" class="text-blue-400 font-bold font-mono">3</span>
                     </div>
-                    <input type="range" id="inpDrops" min="0" max="12" value="3" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
+                    <input type="range" id="inpDrops" min="0" max="12" value="3" class="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
                 </div>
 
                 <!-- IT Metric 3 -->
                 <div class="space-y-3">
-                    <label class="block text-sm text-slate-300 font-medium">Manual Processes & Workflow Vulnerabilities</label>
+                    <label class="block text-sm text-gray-300 font-medium">Manual Processes &amp; Workflow Vulnerabilities</label>
                     <div class="grid grid-cols-3 gap-2">
-                        <label class="cursor-pointer border border-slate-800 bg-slate-950 p-2.5 rounded-lg text-center text-xs block hover:border-blue-500 transition-all">
+                        <label class="cursor-pointer border border-gray-800 bg-gray-950 p-2.5 rounded-lg text-center text-xs block hover:border-blue-500 transition-all">
                             <input type="radio" name="bottleneck" value="2" checked class="sr-only peer">
-                            <span class="text-slate-400 peer-checked:text-blue-400 font-semibold block">Modern</span>
-                            <span class="text-[10px] text-slate-500 block">Custom Apps</span>
+                            <span class="text-gray-400 peer-checked:text-blue-400 font-semibold block">Modern</span>
+                            <span class="text-[10px] text-gray-500 block">Custom Apps</span>
                         </label>
-                        <label class="cursor-pointer border border-slate-800 bg-slate-950 p-2.5 rounded-lg text-center text-xs block hover:border-blue-500 transition-all">
+                        <label class="cursor-pointer border border-gray-800 bg-gray-950 p-2.5 rounded-lg text-center text-xs block hover:border-blue-500 transition-all">
                             <input type="radio" name="bottleneck" value="6" class="sr-only peer">
-                            <span class="text-slate-400 peer-checked:text-blue-400 font-semibold block">Fragmented</span>
-                            <span class="text-[10px] text-slate-500 block">Spreadsheets</span>
+                            <span class="text-gray-400 peer-checked:text-blue-400 font-semibold block">Fragmented</span>
+                            <span class="text-[10px] text-gray-500 block">Spreadsheets</span>
                         </label>
-                        <label class="cursor-pointer border border-slate-800 bg-slate-950 p-2.5 rounded-lg text-center text-xs block hover:border-blue-500 transition-all">
+                        <label class="cursor-pointer border border-gray-800 bg-gray-950 p-2.5 rounded-lg text-center text-xs block hover:border-blue-500 transition-all">
                             <input type="radio" name="bottleneck" value="15" class="sr-only peer">
-                            <span class="text-slate-400 peer-checked:text-blue-400 font-semibold block">Legacy</span>
-                            <span class="text-[10px] text-slate-500 block">Paper-Heavy</span>
+                            <span class="text-gray-400 peer-checked:text-blue-400 font-semibold block">Legacy</span>
+                            <span class="text-[10px] text-gray-500 block">Paper-Heavy</span>
                         </label>
                     </div>
                 </div>
@@ -82,34 +95,34 @@
 
         <!-- ================= TAB 2: FACILITIES PANEL ================= -->
         <section id="panelFacilities" class="space-y-6 hidden">
-            <div class="bg-slate-900/80 backdrop-blur-md border border-slate-800 p-5 rounded-xl space-y-5 shadow-xl">
-                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Facility & Equipment Safety Controls</h3>
+            <div class="irca-panel border p-5 rounded-xl space-y-5 shadow-2xl">
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">Facility &amp; Equipment Safety Controls</h3>
                 
                 <!-- Facility Metric 1 -->
                 <div class="space-y-2">
                     <div class="flex justify-between text-sm">
-                        <label class="text-slate-300 font-medium">Facility Footprint (Sqm Area)</label>
+                        <label class="text-gray-300 font-medium">Facility Footprint (Sqm Area)</label>
                         <span id="valSqm" class="text-blue-400 font-bold font-mono">2,500</span>
                     </div>
-                    <input type="range" id="inpSqm" min="200" max="25000" step="100" value="2500" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
+                    <input type="range" id="inpSqm" min="200" max="25000" step="100" value="2500" class="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
                 </div>
 
                 <!-- Facility Metric 2 -->
                 <div class="space-y-2">
                     <div class="flex justify-between text-sm">
-                        <label class="text-slate-300 font-medium">Average Boiler / Boiler-Room Equipment Age</label>
+                        <label class="text-gray-300 font-medium">Average Boiler / Boiler-Room Equipment Age</label>
                         <span id="valAge" class="text-blue-400 font-bold font-mono">4 Years</span>
                     </div>
-                    <input type="range" id="inpAge" min="0" max="20" value="4" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
+                    <input type="range" id="inpAge" min="0" max="20" value="4" class="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
                 </div>
 
                 <!-- Facility Metric 3 -->
                 <div class="space-y-3">
-                    <label class="block text-sm text-slate-300 font-medium">Regulatory Status (ISCIR / RSVTI Execution)</label>
-                    <label class="flex items-center gap-3 cursor-pointer bg-slate-950 border border-slate-800 p-3.5 rounded-lg hover:border-red-500 transition-all select-none">
-                        <input type="checkbox" id="chkRsvti" class="w-4 h-4 bg-slate-900 border-slate-700 rounded text-blue-500 focus:ring-blue-500 accent-blue-500">
+                    <label class="block text-sm text-gray-300 font-medium">Regulatory Status (ISCIR / RSVTI Execution)</label>
+                    <label class="flex items-center gap-3 cursor-pointer bg-gray-950 border border-gray-800 p-3.5 rounded-lg hover:border-red-500/50 transition-all select-none">
+                        <input type="checkbox" id="chkRsvti" class="w-4 h-4 bg-gray-900 border-gray-700 rounded text-blue-500 focus:ring-blue-500 accent-blue-500">
                         <div>
-                            <span class="text-xs font-semibold block text-slate-200">No Authorized RSVTI Operator Assigned</span>
+                            <span class="text-xs font-semibold block text-gray-200">No Authorized RSVTI Operator Assigned</span>
                             <span class="text-[10px] text-red-400 block font-medium">Exposes facility to immediate ISCIR fines up to 25,000 RON</span>
                         </div>
                     </label>
@@ -119,131 +132,121 @@
 
         <!-- Real-Time Metrics Output Segment -->
         <section class="grid grid-cols-2 gap-4">
-            <div class="bg-slate-900/50 border border-slate-800 p-4 rounded-xl text-center">
-                <span id="lblRiskTitle" class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Annual IT Leakage</span>
+            <div class="bg-gray-950/60 border border-gray-800/80 p-4 rounded-xl text-center">
+                <span id="lblRiskTitle" class="text-[10px] uppercase tracking-wider text-gray-400 font-bold">Annual IT Leakage</span>
                 <div id="outLeakage" class="text-lg font-extrabold text-red-400 font-mono mt-1">0 RON</div>
             </div>
-            <div class="bg-blue-950/40 border border-blue-900/60 p-4 rounded-xl text-center">
+            <div class="bg-blue-950/20 border border-blue-900/40 p-4 rounded-xl text-center">
                 <span id="lblSavingsTitle" class="text-[10px] uppercase tracking-wider text-blue-400 font-bold">IRCA Retained Capital</span>
                 <div id="outSavings" class="text-lg font-extrabold text-emerald-400 font-mono mt-1">0 RON</div>
             </div>
         </section>
 
         <!-- B2B Strategic Conversion & CRM Form Hook -->
-        <section class="bg-slate-900/90 border border-blue-900/40 p-5 rounded-xl space-y-4 shadow-xl">
+        <section class="irca-panel border border-blue-900/30 p-5 rounded-xl space-y-4 shadow-xl">
             <div class="space-y-1">
                 <h3 id="txtFormHeader" class="text-sm font-bold text-white">Secure IT Architecture Optimization Blueprint</h3>
-                <p id="txtFormSub" class="text-xs text-slate-400">Receive an engineering breakdown mapping system stabilization parameters, code auditing workflows, and physical hardware layouts.</p>
-            </div>
-            <form id="leadForm" class="space-y-2.5">
-                <input type="email" required placeholder="manager@enterprise.ro" class="w-full text-sm bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 focus:outline-none focus:border-blue-500 text-white placeholder-slate-600">
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 transition-all text-white text-xs font-bold uppercase tracking-wider py-3 rounded-lg shadow-md">
-                    Request Full Analytical Assessment
-                </button>
-            </form>
-        </section>
-    </main>
 
-    <!-- Calculation Engine and Interface Orchestration Script -->
-    <script>
-        let currentTab = 'IT';
+Receive an engineering breakdown mapping system stabilization parameters, code auditing workflows, and physical hardware layouts.
 
-        // Element Selection Maps
-        const panelIT = document.getElementById('panelIT');
-        const panelFacilities = document.getElementById('panelFacilities');
-        const btnTabIT = document.getElementById('btnTabIT');
-        const btnTabFac = document.getElementById('btnTabFac');
-        const lblRiskTitle = document.getElementById('lblRiskTitle');
-        const lblSavingsTitle = document.getElementById('lblSavingsTitle');
-        const txtFormHeader = document.getElementById('txtFormHeader');
-        const txtFormSub = document.getElementById('txtFormSub');
 
+
+
+Request Full Analytical Assessment
+
+
+
+
+
+
+let currentTab = 'IT';
+// Element Selection Maps
+const panelIT = document.getElementById('panelIT');
+const panelFacilities = document.getElementById('panelFacilities');
+const btnTabIT = document.getElementById('btnTabIT');
+const btnTabFac = document.getElementById('btnTabFac');
+const lblRiskTitle = document.getElementById('lblRiskTitle');
+const lblSavingsTitle = document.getElementById('lblSavingsTitle');
+const txtFormHeader = document.getElementById('txtFormHeader');
+const txtFormSub = document.getElementById('txtFormSub');
 // Inputs Configuration
-        const inpEmployees = document.getElementById('inpEmployees');
-        const inpDrops = document.getElementById('inpDrops');
-        const inpSqm = document.getElementById('inpSqm');
-        const inpAge = document.getElementById('inpAge');
-        const chkRsvti = document.getElementById('chkRsvti');
-
+const inpEmployees = document.getElementById('inpEmployees');
+const inpDrops = document.getElementById('inpDrops');
+const inpSqm = document.getElementById('inpSqm');
+const inpAge = document.getElementById('inpAge');
+const chkRsvti = document.getElementById('chkRsvti');
 // Text Feedback UI Targets
-        const valEmployees = document.getElementById('valEmployees');
-        const valDrops = document.getElementById('valDrops');
-        const valSqm = document.getElementById('valSqm');
-        const valAge = document.getElementById('valAge');
-        const outLeakage = document.getElementById('outLeakage');
-        const outSavings = document.getElementById('outSavings');
+const valEmployees = document.getElementById('valEmployees');
+const valDrops = document.getElementById('valDrops');
+const valSqm = document.getElementById('valSqm');
+const valAge = document.getElementById('valAge');
+const outLeakage = document.getElementById('outLeakage');
+const outSavings = document.getElementById('outSavings');
 function formatRON(val) {
 return new Intl.NumberFormat('ro-RO', { style: 'currency', currency: 'RON', maximumFractionDigits: 0 }).format(val);
 }
-
 function switchTab(target) {
-      currentTab = target;
+currentTab = target;
 if(target === 'IT') {
-      panelIT.classList.remove('hidden');
-      panelFacilities.classList.add('hidden');
-      btnTabIT.classList.add('tab-active');
-      btnTabFac.classList.remove('tab-active');
-      lblRiskTitle.innerText = "Annual IT Leakage";
-      lblSavingsTitle.innerText = "IRCA Retained Capital";
-      txtFormHeader.innerText = "Secure IT Architecture Optimization Blueprint";
-      txtFormSub.innerText = "Receive an engineering breakdown mapping system stabilization 
-      parameters, code auditing workflows, and physical hardware layouts.";
+panelIT.classList.remove('hidden');
+panelFacilities.classList.add('hidden');
+btnTabIT.classList.add('tab-active');
+btnTabFac.classList.remove('tab-active');
+lblRiskTitle.innerText = "Annual IT Leakage";
+lblSavingsTitle.innerText = "IRCA Retained Capital";
+txtFormHeader.innerText = "Secure IT Architecture Optimization Blueprint";
+txtFormSub.innerText = "Receive an engineering breakdown mapping system stabilization parameters, code auditing workflows, and physical hardware layouts.";
 } else {
-      panelIT.classList.add('hidden');
-      panelFacilities.classList.remove('hidden');
-      btnTabIT.classList.remove('tab-active');
-      btnTabFac.classList.add('tab-active');
-      lblRiskTitle.innerText = "Facility Financial Exposure";
-      lblSavingsTitle.innerText = "Managed Risk Deficit";
-      txtFormHeader.innerText = "Request Physical Facility Safety Audit";
-      txtFormSub.innerText = "Schedule a physical structural evaluation to review industrial 
-      technical maintenance pipelines and verify ISCIR operator regulatory parameters.";
+panelIT.classList.add('hidden');
+panelFacilities.classList.remove('hidden');
+btnTabIT.classList.remove('tab-active');
+btnTabFac.classList.add('tab-active');
+lblRiskTitle.innerText = "Facility Financial Exposure";
+lblSavingsTitle.innerText = "Managed Risk Deficit";
+txtFormHeader.innerText = "Request Physical Facility Safety Audit";
+txtFormSub.innerText = "Schedule a physical structural evaluation to review industrial technical maintenance pipelines and verify ISCIR operator regulatory parameters.";
 }
 runCalculations();
 }
 function runCalculations() {
-  if(currentTab === 'IT') {
-            const E = parseInt(inpEmployees.value);
-            const D = parseInt(inpDrops.value);
-      valEmployees.innerText = E;
-      valDrops.innerText = D;
-
-            const checkedRadio = document.querySelector('input[name="bottleneck"]:checked');
-            const bottleneckHours = checkedRadio ? parseInt(checkedRadio.value) : 2;
-            const networkCost = D * 0.5 * E * 45 * 12;
-            const workflowCost = bottleneckHours * E * 45 * 12;
-            const totalITLeakage = networkCost + workflowCost;
-            const optimizedSavings = totalITLeakage * 0.35;
-
-      outLeakage.innerText = formatRON(totalITLeakage);
-      outSavings.innerText = formatRON(optimizedSavings);
+if(currentTab === 'IT') {
+const E = parseInt(inpEmployees.value);
+const D = parseInt(inpDrops.value);
+valEmployees.innerText = E;
+valDrops.innerText = D;
+const checkedRadio = document.querySelector('input[name="bottleneck"]:checked');
+const bottleneckHours = checkedRadio ? parseInt(checkedRadio.value) : 2;
+const networkCost = D * 0.5 * E * 45 * 12;
+const workflowCost = bottleneckHours * E * 45 * 12;
+const totalITLeakage = networkCost + workflowCost;
+const optimizedSavings = totalITLeakage * 0.35;
+outLeakage.innerText = formatRON(totalITLeakage);
+outSavings.innerText = formatRON(optimizedSavings);
 } else {
-            const Sqm = parseInt(inpSqm.value);
-            const Age = parseInt(inpAge.value);
-      valSqm.innerText = Sqm.toLocaleString('ro-RO');
-      valAge.innerText = Age + (Age === 1 ? " Year" : " Years");
-
+const Sqm = parseInt(inpSqm.value);
+const Age = parseInt(inpAge.value);
+valSqm.innerText = Sqm.toLocaleString('ro-RO');
+valAge.innerText = Age + (Age === 1 ? " Year" : " Years");
 let structuralRisk = (Sqm * 15) + (Age * 5200);
 if(chkRsvti.checked) {
-      structuralRisk += 25000; // Regulatory Penalty Value Added
+structuralRisk += 25000;
 }
-            const facilitiesSavingsBenefit = structuralRisk * 0.28; // 28% risk mitigation metric via preventive structural maintenance
-      outLeakage.innerText = formatRON(structuralRisk);
-      outSavings.innerText = formatRON(facilitiesSavingsBenefit);
+const facilitiesSavingsBenefit = structuralRisk * 0.28;
+outLeakage.innerText = formatRON(structuralRisk);
+outSavings.innerText = formatRON(facilitiesSavingsBenefit);
 }
 }
-
 // Attach Global DOM Configuration Observers
-      inpEmployees.addEventListener('input', runCalculations);
-      inpDrops.addEventListener('input', runCalculations);
-      inpSqm.addEventListener('input', runCalculations);
-      inpAge.addEventListener('input', runCalculations);
-      chkRsvti.addEventListener('change', runCalculations);
-      document.querySelectorAll('input[name="bottleneck"]').forEach(r => 
-      r.addEventListener('change', runCalculations));
-
-      document.getElementById('leadForm').addEventListener('submit', (e) => {e.preventDefault();
-      alert(Strategic Profile Parsed. The specific IRCA Sistem ${currentTab} optimization dossier is being compiled and sent to your address.);
+inpEmployees.addEventListener('input', runCalculations);
+inpDrops.addEventListener('input', runCalculations);
+inpSqm.addEventListener('input', runCalculations);
+inpAge.addEventListener('input', runCalculations);
+chkRsvti.addEventListener('change', runCalculations);
+document.querySelectorAll('input[name="bottleneck"]').forEach(r => r.addEventListener('change', runCalculations));
+document.getElementById('leadForm').addEventListener('submit', (e) => {
+e.preventDefault();
+alert(Strategic Profile Parsed. The specific IRCA Sistem ${currentTab} optimization dossier is being compiled and sent to your address.);
 });
 // Bootstrap Core Frame State
 runCalculations();
+
