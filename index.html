@@ -1,4 +1,19 @@
-<!DOCTYPE html>
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <style>
+                body {
+                  background-color: white; /* Ensure the iframe has a white background */
+                }
+
+                
+              </style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
 <html lang="ro">
 <head>
 <meta charset="UTF-8">
@@ -6,6 +21,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <title>IRCA Sistem SRL | Diagnostic Enterprise</title>
+<!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
   @import url('https://cdn.fontsource.org/font/inter/400.css');
   @import url('https://cdn.fontsource.org/font/inter/600.css');
@@ -72,7 +89,6 @@
     min-height: 100vh;
   }
 
-  /* Language Selector */
   .lang-bar {
     display: flex;
     justify-content: center;
@@ -102,7 +118,6 @@
     box-shadow: 0 0 16px rgba(37, 99, 235, 0.4);
   }
 
-  /* Header */
   .header {
     text-align: center;
     padding: 16px 0 20px;
@@ -150,7 +165,6 @@
     color: var(--green);
   }
 
-  /* Tab Navigation */
   .tab-nav {
     display: flex;
     gap: 8px;
@@ -187,7 +201,6 @@
 
   .tab-btn .tab-icon { font-size: 16px; }
 
-  /* Panels */
   .panel { display: none; animation: fadeSlide 0.4s ease; }
   .panel.active { display: block; }
 
@@ -196,7 +209,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Cards */
   .card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
@@ -245,10 +257,7 @@
     line-height: 1.2;
   }
 
-  /* Input Groups */
-  .input-group {
-    margin-bottom: 16px;
-  }
+  .input-group { margin-bottom: 16px; }
 
   .input-label {
     display: block;
@@ -280,23 +289,9 @@
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
   }
 
-  .input-field::placeholder {
-    color: var(--text-dim);
-    font-weight: 400;
-  }
+  .input-field::placeholder { color: var(--text-dim); font-weight: 400; }
 
-  .input-hint {
-    font-size: 11px;
-    color: var(--text-dim);
-    margin-top: 4px;
-  }
-
-  /* Radio Group */
-  .radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  .radio-group { display: flex; flex-direction: column; gap: 8px; }
 
   .radio-option {
     display: flex;
@@ -341,18 +336,9 @@
     border-radius: 50%;
   }
 
-  .radio-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-  }
+  .radio-label { font-size: 13px; font-weight: 600; color: var(--text); }
+  .radio-sub { font-size: 11px; color: var(--text-dim); }
 
-  .radio-sub {
-    font-size: 11px;
-    color: var(--text-dim);
-  }
-
-  /* Checkbox */
   .checkbox-wrapper {
     display: flex;
     align-items: center;
@@ -396,19 +382,9 @@
     font-weight: 700;
   }
 
-  .checkbox-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-  }
+  .checkbox-label { font-size: 13px; font-weight: 600; color: var(--text); }
+  .checkbox-sub { font-size: 11px; color: var(--red); font-weight: 500; }
 
-  .checkbox-sub {
-    font-size: 11px;
-    color: var(--red);
-    font-weight: 500;
-  }
-
-  /* Results */
   .result-row {
     display: flex;
     justify-content: space-between;
@@ -419,22 +395,13 @@
 
   .result-row:last-child { border-bottom: none; }
 
-  .result-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-dim);
-  }
+  .result-label { font-size: 12px; font-weight: 600; color: var(--text-dim); }
 
-  .result-value {
-    font-size: 18px;
-    font-weight: 800;
-  }
-
+  .result-value { font-size: 18px; font-weight: 800; }
   .result-value.red { color: var(--red); }
   .result-value.green { color: var(--green); }
   .result-value.orange { color: var(--orange); }
 
-  /* CTA Button */
   .cta-btn {
     width: 100%;
     padding: 16px;
@@ -459,7 +426,11 @@
     box-shadow: 0 2px 10px rgba(37, 99, 235, 0.25);
   }
 
-  /* Form */
+  .cta-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
   .form-card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
@@ -469,18 +440,8 @@
     backdrop-filter: blur(12px);
   }
 
-  .form-title {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-
-  .form-sub {
-    font-size: 12px;
-    color: var(--text-dim);
-    margin-bottom: 16px;
-    line-height: 1.5;
-  }
+  .form-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .form-sub { font-size: 12px; color: var(--text-dim); margin-bottom: 16px; line-height: 1.5; }
 
   .form-input {
     width: 100%;
@@ -496,13 +457,9 @@
     transition: border-color 0.3s ease;
   }
 
-  .form-input:focus {
-    border-color: var(--blue-accent);
-  }
-
+  .form-input:focus { border-color: var(--blue-accent); }
   .form-input::placeholder { color: var(--text-dim); }
 
-  /* Footer */
   .footer {
     text-align: center;
     padding: 24px 0 16px;
@@ -511,12 +468,8 @@
     line-height: 1.6;
   }
 
-  .footer a {
-    color: var(--blue-glow);
-    text-decoration: none;
-  }
+  .footer a { color: var(--blue-glow); text-decoration: none; }
 
-  /* NFC Badge */
   .nfc-badge {
     display: flex;
     align-items: center;
@@ -533,7 +486,6 @@
     width: fit-content;
   }
 
-  /* Toast */
   .toast {
     position: fixed;
     bottom: 30px;
@@ -543,20 +495,20 @@
     color: white;
     padding: 14px 24px;
     border-radius: 12px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     z-index: 1000;
     transition: transform 0.4s ease;
     box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
-    max-width: 90%;
+    max-width: 92%;
     text-align: center;
+    line-height: 1.4;
   }
 
-  .toast.show {
-    transform: translateX(-50%) translateY(0);
-  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.error { background: var(--red); box-shadow: 0 8px 30px rgba(239, 68, 68, 0.4); }
+  .toast.sending { background: var(--orange); box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4); }
 
-  /* Status Bar Simulation */
   .status-bar {
     display: flex;
     justify-content: space-between;
@@ -567,7 +519,6 @@
     color: var(--text-dim);
   }
 
-  /* Pulse animation for live values */
   .live-dot {
     display: inline-block;
     width: 8px; height: 8px;
@@ -582,14 +533,12 @@
     50% { opacity: 0.5; transform: scale(0.8); }
   }
 
-  /* Divider */
   .divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--card-border), transparent);
     margin: 8px 0;
   }
 
-  /* Metric tags */
   .metric-tags {
     display: flex;
     flex-wrap: wrap;
@@ -607,6 +556,38 @@
     color: var(--blue-glow);
   }
 
+  .spinner {
+    display: inline-block;
+    width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .email-status {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    display: none;
+  }
+
+  .email-status.show { display: block; }
+  .email-status.success {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: var(--green);
+  }
+  .email-status.error {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: var(--red);
+  }
+
   @media (max-width: 360px) {
     .app-container { padding: 8px 12px 80px; }
     .card { padding: 14px; }
@@ -622,19 +603,16 @@
 
 <div class="app-container">
 
-  <!-- Status Bar -->
   <div class="status-bar">
     <span>IRCA Sistem</span>
     <span id="clockDisplay">--:--</span>
   </div>
 
-  <!-- Language Selector -->
   <div class="lang-bar">
-    <button class="lang-btn active" data-lang="ro" onclick="setLanguage('ro')">🇷🇴 Română</button>
+    <button class="lang-btn active" data-lang="ro" onclick="setLanguage('ro')">🇷 Română</button>
     <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">🇬🇧 English</button>
   </div>
 
-  <!-- Header -->
   <div class="header">
     <div class="logo-container">
       <img src="https://raw.githubusercontent.com/ghamtech-prog/IRCA-Sistem-Presentation-App/f19bd9688b8eb809627d503a7e79fd9d729fb285/IRCA%20Logo.png" alt="IRCA Sistem Logo" onerror="this.style.display='none'">
@@ -647,7 +625,6 @@
     </div>
   </div>
 
-  <!-- Tab Navigation -->
   <div class="tab-nav">
     <button class="tab-btn active" id="btnTabIT" onclick="switchTab('IT')">
       <span class="tab-icon">💻</span>
@@ -661,14 +638,10 @@
 
   <!-- ==================== IT PANEL ==================== -->
   <div class="panel active" id="panelIT">
-
-    <!-- IT Controls Card -->
     <div class="card">
       <div class="card-header">
-        <div class="card-icon blue">️</div>
-        <div>
-          <div class="card-label" data-i18n="itControlsLabel">Controale Infrastructură IT</div>
-        </div>
+        <div class="card-icon blue">⚙️</div>
+        <div><div class="card-label" data-i18n="itControlsLabel">Controale Infrastructură IT</div></div>
       </div>
 
       <div class="input-group">
@@ -709,7 +682,6 @@
       </div>
     </div>
 
-    <!-- IT Results Card -->
     <div class="card">
       <div class="card-header">
         <div class="card-icon red">📊</div>
@@ -734,18 +706,14 @@
       </div>
     </div>
 
-    <!-- IT CTA -->
     <button class="cta-btn" onclick="scrollToForm('IT')">
       <span>📋</span>
       <span data-i18n="ctaIT">Solicită Evaluare Analitică Completă</span>
     </button>
-
   </div>
 
   <!-- ==================== FACILITIES PANEL ==================== -->
   <div class="panel" id="panelFacilities">
-
-    <!-- Facilities Controls Card -->
     <div class="card">
       <div class="card-header">
         <div class="card-icon cyan">🏭</div>
@@ -775,10 +743,9 @@
       </div>
     </div>
 
-    <!-- Facilities Results Card -->
     <div class="card">
       <div class="card-header">
-        <div class="card-icon orange">️</div>
+        <div class="card-icon orange">⚠️</div>
         <div>
           <div class="card-label"><span class="live-dot"></span><span data-i18n="facResultsLabel">Rezultate Analiză Facilități — Live</span></div>
         </div>
@@ -800,12 +767,10 @@
       </div>
     </div>
 
-    <!-- Facilities CTA -->
     <button class="cta-btn" onclick="scrollToForm('Facilities')">
       <span>🔍</span>
       <span data-i18n="ctaFac">Solicită Audit Siguranță Facilitate Fizică</span>
     </button>
-
   </div>
 
   <!-- ==================== LEAD FORM ==================== -->
@@ -818,14 +783,22 @@
       <input type="email" class="form-input" id="inpEmail" placeholder="Email Corporativ" data-i18n-placeholder="phEmail" required>
       <input type="tel" class="form-input" id="inpPhone" placeholder="Telefon" data-i18n-placeholder="phPhone" inputmode="tel">
       <input type="text" class="form-input" id="inpCompany" placeholder="Companie" data-i18n-placeholder="phCompany">
-      <button type="submit" class="cta-btn" style="margin-top: 6px;">
+      
+      <button type="submit" class="cta-btn" id="submitBtn" style="margin-top: 6px;">
         <span>🚀</span>
-        <span data-i18n="btnSubmit">Trimite Profilul Strategic</span>
+        <span id="submitBtnText" data-i18n="btnSubmit">Trimite Profilul Strategic</span>
       </button>
+
+      <div class="email-status" id="emailStatus"></div>
     </form>
+
+    <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--card-border);">
+      <div style="font-size: 11px; color: var(--text-dim); text-align: center; line-height: 1.5;" data-i18n="emailNotice">
+        📧 Raportul complet va fi trimis automat la adresa dvs. de email și la <strong style="color: var(--cyan);">irca.sistem@gmail.com</strong>
+      </div>
+    </div>
   </div>
 
-  <!-- Footer -->
   <div class="footer">
     <div>© 2025 IRCA Sistem SRL</div>
     <div data-i18n="footerText">Soluții Enterprise Integrate | Divizia IT & Facilități</div>
@@ -836,10 +809,30 @@
 
 </div>
 
-<!-- Toast Notification -->
 <div class="toast" id="toast"></div>
 
 <script>
+// ==================== EMAILJS CONFIGURATION ====================
+// ⚠️ IMPORTANT: Replace these with your actual EmailJS credentials
+// Sign up at https://www.emailjs.com/ (free tier: 200 emails/month)
+// 1. Create an Email Service (Gmail recommended)
+// 2. Create an Email Template with variables: {{to_name}}, {{from_name}}, {{from_company}}, {{from_email}}, {{from_phone}}, {{report_type}}, {{report_data}}, {{date}}
+// 3. Add both recipient emails in the template "To Email" field: {{to_email}}, irca.sistem@gmail.com
+// 4. Paste your credentials below:
+
+const EMAILJS_CONFIG = {
+  publicKey: 'YOUR_PUBLIC_KEY',        // e.g., 'user_xxxxxxxxxxxxxxxxx'
+  serviceId: 'YOUR_SERVICE_ID',        // e.g., 'service_xxxxxxxxx'
+  templateId: 'YOUR_TEMPLATE_ID'       // e.g., 'template_xxxxxxxxx'
+};
+
+// Initialize EmailJS
+(function() {
+  if (typeof emailjs !== 'undefined' && EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY') {
+    emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
+  }
+})();
+
 // ==================== TRANSLATIONS ====================
 const translations = {
   ro: {
@@ -882,17 +875,37 @@ const translations = {
     formHeaderFac: "Solicită Audit Siguranță Facilitate Fizică",
     formSubFac: "Programează o evaluare structurală fizică pentru a revizui pipeline-urile de mentenanță tehnică industrială și a verifica parametrii de conformitate ai operatorului ISCIR.",
     btnSubmit: "Trimite Profilul Strategic",
+    btnSubmitting: "Se trimite raportul...",
     phName: "Nume Complet",
     phEmail: "Email Corporativ",
     phPhone: "Telefon",
     phCompany: "Companie",
     footerText: "Soluții Enterprise Integrate | Divizia IT & Facilități",
-    toastSuccess: "Profil Strategic Procesat. Dosarul de optimizare IRCA Sistem este compilat și trimis către adresa dvs.",
-    toastSuccessFac: "Profil Strategic Procesat. Dosarul de audit facilitate IRCA Sistem este compilat și trimis către adresa dvs.",
-    riskTitleIT: "Pierderi IT Anuale",
-    savingsTitleIT: "Capital Reținut IRCA",
-    riskTitleFac: "Expunere Financiară Facilitate",
-    savingsTitleFac: "Deficit Risc Gestionat"
+    emailNotice: " Raportul complet va fi trimis automat la adresa dvs. de email și la irca.sistem@gmail.com",
+    toastSuccess: "✅ Raport trimis cu succes! Verificați email-ul (inclusiv folderul Spam). O copie a fost trimisă și la irca.sistem@gmail.com.",
+    toastError: "❌ Eroare la trimitere. Vă rugăm să verificați conexiunea la internet și să încercați din nou.",
+    toastFallback: "📧 S-a deschis aplicația de email. Completați și trimiteți manual.",
+    statusSuccess: "✅ Raport trimis cu succes către ambele adrese de email!",
+    statusError: "❌ Eroare la trimitere. Vă rugăm încercați din nou.",
+    statusSending: "⏳ Se trimite raportul către adresele de email...",
+    reportTypeIT: "Raport Analiză IT - Divizia IT",
+    reportTypeFac: "Raport Audit Facilități - RSVTI",
+    reportSectionClient: "INFORMAȚII CLIENT",
+    reportSectionIT: "DATE ANALIZĂ IT",
+    reportSectionFac: "DATE ANALIZĂ FACILITĂȚI",
+    reportFieldEmployees: "Angajați",
+    reportFieldDrops: "Căderi Rețea/Lună",
+    reportFieldBottleneck: "Tip Workflow (ore pierdute/săpt.)",
+    reportFieldNetworkCost: "Cost Rețea Anual",
+    reportFieldWorkflowCost: "Cost Workflow Anual",
+    reportFieldTotalLeakage: "Pierderi IT Totale",
+    reportFieldSavings: "Economii Potențiale (35%)",
+    reportFieldSqm: "Suprafață (mp)",
+    reportFieldAge: "Vârsta Echipamente (ani)",
+    reportFieldRsvti: "Fără Operator RSVTI",
+    reportFieldFacRisk: "Risc Facilitate",
+    reportFieldFacSavings: "Reducere Risc (28%)",
+    reportFieldDate: "Data Generării"
   },
   en: {
     headerSubtitle: "Integrated Enterprise Solutions",
@@ -934,17 +947,37 @@ const translations = {
     formHeaderFac: "Request Physical Facility Safety Audit",
     formSubFac: "Schedule a physical structural evaluation to review industrial technical maintenance pipelines and verify ISCIR operator regulatory parameters.",
     btnSubmit: "Submit Strategic Profile",
+    btnSubmitting: "Sending report...",
     phName: "Full Name",
     phEmail: "Corporate Email",
     phPhone: "Phone",
     phCompany: "Company",
     footerText: "Integrated Enterprise Solutions | IT & Facilities Division",
-    toastSuccess: "Strategic Profile Parsed. The specific IRCA Sistem IT optimization dossier is being compiled and sent to your address.",
-    toastSuccessFac: "Strategic Profile Parsed. The specific IRCA Sistem facility audit dossier is being compiled and sent to your address.",
-    riskTitleIT: "Annual IT Leakage",
-    savingsTitleIT: "IRCA Retained Capital",
-    riskTitleFac: "Facility Financial Exposure",
-    savingsTitleFac: "Managed Risk Deficit"
+    emailNotice: "📧 Full report will be automatically sent to your email and to irca.sistem@gmail.com",
+    toastSuccess: "✅ Report sent successfully! Check your email (including Spam folder). A copy was also sent to irca.sistem@gmail.com.",
+    toastError: "❌ Sending failed. Please check your internet connection and try again.",
+    toastFallback: "📧 Email app opened. Please complete and send manually.",
+    statusSuccess: "✅ Report sent successfully to both email addresses!",
+    statusError: "❌ Sending failed. Please try again.",
+    statusSending: "⏳ Sending report to email addresses...",
+    reportTypeIT: "IT Analysis Report - IT Division",
+    reportTypeFac: "Facilities Audit Report - RSVTI",
+    reportSectionClient: "CLIENT INFORMATION",
+    reportSectionIT: "IT ANALYSIS DATA",
+    reportSectionFac: "FACILITIES ANALYSIS DATA",
+    reportFieldEmployees: "Employees",
+    reportFieldDrops: "Network Drops/Month",
+    reportFieldBottleneck: "Workflow Type (hours lost/week)",
+    reportFieldNetworkCost: "Annual Network Cost",
+    reportFieldWorkflowCost: "Annual Workflow Cost",
+    reportFieldTotalLeakage: "Total IT Leakage",
+    reportFieldSavings: "Potential Savings (35%)",
+    reportFieldSqm: "Area (sqm)",
+    reportFieldAge: "Equipment Age (years)",
+    reportFieldRsvti: "No RSVTI Operator",
+    reportFieldFacRisk: "Facility Risk",
+    reportFieldFacSavings: "Risk Reduction (28%)",
+    reportFieldDate: "Generation Date"
   }
 };
 
@@ -958,7 +991,6 @@ function setLanguage(lang) {
     b.classList.toggle('active', b.dataset.lang === lang);
   });
 
-  // Update all data-i18n elements
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (translations[lang][key]) {
@@ -966,7 +998,6 @@ function setLanguage(lang) {
     }
   });
 
-  // Update placeholders
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
     if (translations[lang][key]) {
@@ -974,7 +1005,6 @@ function setLanguage(lang) {
     }
   });
 
-  // Update form header based on current tab
   updateFormText();
   runCalculations();
 }
@@ -1051,24 +1081,220 @@ function runCalculations() {
   }
 }
 
-// ==================== FORM ====================
+// ==================== REPORT GENERATION ====================
+function generateReportData() {
+  const t = translations[currentLang];
+  const name = document.getElementById('inpName').value || 'N/A';
+  const company = document.getElementById('inpCompany').value || 'N/A';
+  const email = document.getElementById('inpEmail').value || 'N/A';
+  const phone = document.getElementById('inpPhone').value || 'N/A';
+  const now = new Date();
+  const dateStr = now.toLocaleString('ro-RO');
+
+  let reportData = '';
+  let reportType = '';
+
+  if (currentTab === 'IT') {
+    reportType = t.reportTypeIT;
+    const E = parseInt(document.getElementById('inpEmployees').value) || 0;
+    const D = parseInt(document.getElementById('inpDrops').value) || 0;
+    const checkedRadio = document.querySelector('input[name="bottleneck"]:checked');
+    const bottleneckHours = checkedRadio ? parseInt(checkedRadio.value) : 2;
+    const bottleneckLabel = checkedRadio ? checkedRadio.parentElement.querySelector('.radio-label').textContent : 'Modern';
+
+    const networkCost = D * 0.5 * E * 45 * 12;
+    const workflowCost = bottleneckHours * E * 45 * 12;
+    const totalITLeakage = networkCost + workflowCost;
+    const optimizedSavings = totalITLeakage * 0.35;
+
+    reportData = `
+${t.reportSectionClient}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• ${t.reportFieldEmployees}: ${E}
+• ${t.reportFieldDrops}: ${D}
+• ${t.reportFieldBottleneck}: ${bottleneckLabel} (${bottleneckHours}h)
+
+${t.reportSectionIT}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• ${t.reportFieldNetworkCost}: ${formatRON(networkCost)}
+• ${t.reportFieldWorkflowCost}: ${formatRON(workflowCost)}
+• ${t.reportFieldTotalLeakage}: ${formatRON(totalITLeakage)}
+• ${t.reportFieldSavings}: ${formatRON(optimizedSavings)}
+
+${t.reportFieldDate}: ${dateStr}
+    `.trim();
+  } else {
+    reportType = t.reportTypeFac;
+    const Sqm = parseInt(document.getElementById('inpSqm').value) || 0;
+    const Age = parseInt(document.getElementById('inpAge').value) || 0;
+    const chkRsvti = document.getElementById('chkRsvti').checked;
+
+    let structuralRisk = (Sqm * 15) + (Age * 5200);
+    if (chkRsvti) {
+      structuralRisk += 25000;
+    }
+    const facilitiesSavingsBenefit = structuralRisk * 0.28;
+
+    reportData = `
+${t.reportSectionClient}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• ${t.reportFieldSqm}: ${Sqm.toLocaleString('ro-RO')} mp
+• ${t.reportFieldAge}: ${Age} ani
+• ${t.reportFieldRsvti}: ${chkRsvti ? 'DA (⚠️ Risc ISCIR 25.000 RON)' : 'NU'}
+
+${t.reportSectionFac}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• ${t.reportFieldFacRisk}: ${formatRON(structuralRisk)}
+• ${t.reportFieldFacSavings}: ${formatRON(facilitiesSavingsBenefit)}
+
+${t.reportFieldDate}: ${dateStr}
+    `.trim();
+  }
+
+  return {
+    to_name: name,
+    from_name: name,
+    from_company: company,
+    from_email: email,
+    from_phone: phone,
+    to_email: email,
+    report_type: reportType,
+    report_data: reportData,
+    date: dateStr
+  };
+}
+
+// ==================== EMAIL SENDING ====================
+async function sendReportEmails(reportData) {
+  const t = translations[currentLang];
+  const statusEl = document.getElementById('emailStatus');
+  const submitBtn = document.getElementById('submitBtn');
+  const submitBtnText = document.getElementById('submitBtnText');
+
+  // Check if EmailJS is properly configured
+  if (EMAILJS_CONFIG.publicKey === 'YOUR_PUBLIC_KEY') {
+    // Fallback: open mailto with pre-filled content
+    console.warn('EmailJS not configured. Using mailto fallback.');
+    openMailtoFallback(reportData);
+    return true;
+  }
+
+  // Show sending state
+  submitBtn.disabled = true;
+  submitBtnText.textContent = t.btnSubmitting;
+  statusEl.className = 'email-status show sending';
+  statusEl.textContent = t.statusSending;
+
+  try {
+    // Send to client email (template should also include irca.sistem@gmail.com as CC/BCC)
+    // The EmailJS template should have:
+    // To Email: {{to_email}}
+    // CC: irca.sistem@gmail.com
+    // Subject: IRCA Sistem - {{report_type}} - {{from_name}}
+    // Body: Full report with all variables
+
+    const response = await emailjs.send(
+      EMAILJS_CONFIG.serviceId,
+      EMAILJS_CONFIG.templateId,
+      reportData
+    );
+
+    console.log('Email sent successfully:', response);
+
+    statusEl.className = 'email-status show success';
+    statusEl.textContent = t.statusSuccess;
+    showToast(t.toastSuccess, 'success');
+
+    return true;
+  } catch (error) {
+    console.error('Email sending failed:', error);
+
+    statusEl.className = 'email-status show error';
+    statusEl.textContent = t.statusError;
+    showToast(t.toastError, 'error');
+
+    // Fallback to mailto
+    setTimeout(() => {
+      if (confirm(currentLang === 'ro' 
+        ? 'Trimiterea automată a eșuat. Deschideți aplicația de email pentru trimitere manuală?' 
+        : 'Automatic sending failed. Open email app for manual sending?')) {
+        openMailtoFallback(reportData);
+      }
+    }, 1000);
+
+    return false;
+  } finally {
+    submitBtn.disabled = false;
+    submitBtnText.textContent = t.btnSubmit;
+  }
+}
+
+function openMailtoFallback(reportData) {
+  const t = translations[currentLang];
+  const subject = encodeURIComponent(`IRCA Sistem - ${reportData.report_type} - ${reportData.from_name}`);
+  const body = encodeURIComponent(`
+IRCA SISTEM SRL - RAPORT DIAGNOSTIC
+=====================================
+
+${t.reportSectionClient}:
+• Nume: ${reportData.from_name}
+• Companie: ${reportData.from_company}
+• Email: ${reportData.from_email}
+• Telefon: ${reportData.from_phone}
+
+${reportData.report_data}
+
+=====================================
+Acest raport a fost generat automat de aplicația IRCA Sistem.
+Contact: irca.sistem@gmail.com
+  `.trim());
+
+  // Open mailto for both recipients
+  const mailtoLink = `mailto:irca.sistem@gmail.com,${reportData.to_email}?subject=${subject}&body=${body}`;
+  window.location.href = mailtoLink;
+  showToast(t.toastFallback, 'sending');
+}
+
+// ==================== FORM HANDLING ====================
+async function handleSubmit(e) {
+  e.preventDefault();
+
+  const name = document.getElementById('inpName').value.trim();
+  const email = document.getElementById('inpEmail').value.trim();
+  const phone = document.getElementById('inpPhone').value.trim();
+  const company = document.getElementById('inpCompany').value.trim();
+
+  if (!name || !email) {
+    showToast(currentLang === 'ro' ? '⚠️ Completați numele și email-ul' : '⚠️ Please fill in name and email', 'error');
+    return;
+  }
+
+  // Generate report data
+  const reportData = generateReportData();
+
+  // Send emails
+  const success = await sendReportEmails(reportData);
+
+  if (success) {
+    // Reset form after successful send
+    setTimeout(() => {
+      document.getElementById('leadForm').reset();
+      document.getElementById('emailStatus').className = 'email-status';
+    }, 3000);
+  }
+}
+
+// ==================== SCROLL TO FORM ====================
 function scrollToForm(tab) {
   document.getElementById('leadFormCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-function handleSubmit(e) {
-  e.preventDefault();
-  const t = translations[currentLang];
-  const msg = currentTab === 'IT' ? t.toastSuccess : t.toastSuccessFac;
-  showToast(msg);
-  e.target.reset();
-}
-
-function showToast(msg) {
+// ==================== TOAST ====================
+function showToast(msg, type = 'success') {
   const toast = document.getElementById('toast');
   toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 4000);
+  toast.className = 'toast show ' + type;
+  setTimeout(() => toast.className = 'toast', 5000);
 }
 
 // ==================== CLOCK ====================
@@ -1095,3 +1321,18 @@ runCalculations();
 
 </body>
 </html>
+
+
+
+              <script>
+                              const EMAILJS_CONFIG = {
+  publicKey: 'YOUR_PUBLIC_KEY',      // ← Paste here
+  serviceId: 'YOUR_SERVICE_ID',      // ← Paste here
+  templateId: 'YOUR_TEMPLATE_ID'     // ← Paste here
+};
+
+
+              </script>
+                        </body>
+                        </html>
+                    
