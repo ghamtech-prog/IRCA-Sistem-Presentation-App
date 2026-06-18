@@ -1,252 +1,1097 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IRCA Sistem SRL | Enterprise Diagnostic</title>
-    <script src="https://tailwindcss.com"></script>
-    <style>
-        /* IRCA Corporate Aesthetic Theme Rules */
-        .irca-bg { background: linear-gradient(135deg, #090d16 0%, #111827 100%); }
-        .irca-panel { background-color: rgba(17, 24, 39, 0.95); border-color: rgba(31, 41, 55, 0.8); }
-        .tab-active { border-color: #3b82f6; color: #3b82f6; background-color: rgba(59, 130, 246, 0.08); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>IRCA Sistem SRL | Diagnostic Enterprise</title>
+<style>
+  @import url('https://cdn.fontsource.org/font/inter/400.css');
+  @import url('https://cdn.fontsource.org/font/inter/600.css');
+  @import url('https://cdn.fontsource.org/font/inter/700.css');
+  @import url('https://cdn.fontsource.org/font/inter/800.css');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --navy: #0a1628;
+    --navy-light: #132240;
+    --blue: #1a3a6b;
+    --blue-accent: #2563eb;
+    --blue-glow: #3b82f6;
+    --cyan: #06b6d4;
+    --green: #10b981;
+    --red: #ef4444;
+    --orange: #f59e0b;
+    --text: #f1f5f9;
+    --text-dim: #94a3b8;
+    --card-bg: rgba(19, 34, 64, 0.7);
+    --card-border: rgba(59, 130, 246, 0.2);
+    --gradient: linear-gradient(135deg, #0a1628 0%, #132240 50%, #1a3a6b 100%);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--gradient);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .bg-grid {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-glow {
+    position: fixed;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .bg-glow-1 { top: -100px; right: -100px; background: var(--blue-accent); }
+  .bg-glow-2 { bottom: -100px; left: -100px; background: var(--cyan); }
+
+  .app-container {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 12px 16px 100px;
+    min-height: 100vh;
+  }
+
+  /* Language Selector */
+  .lang-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+    margin-bottom: 8px;
+  }
+
+  .lang-btn {
+    padding: 6px 18px;
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+
+  .lang-btn.active {
+    background: var(--blue-accent);
+    color: white;
+    border-color: var(--blue-accent);
+    box-shadow: 0 0 16px rgba(37, 99, 235, 0.4);
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 16px 0 20px;
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .logo-container img {
+    max-width: 220px;
+    height: auto;
+    filter: drop-shadow(0 4px 20px rgba(37, 99, 235, 0.3));
+  }
+
+  .header-subtitle {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 4px;
+  }
+
+  .header-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 5px 14px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green);
+  }
+
+  /* Tab Navigation */
+  .tab-nav {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0;
+    padding: 4px;
+    background: var(--navy-light);
+    border-radius: 14px;
+    border: 1px solid var(--card-border);
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 12px 8px;
+    border: none;
+    border-radius: 11px;
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .tab-btn.active {
+    background: var(--blue-accent);
+    color: white;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+  }
+
+  .tab-btn .tab-icon { font-size: 16px; }
+
+  /* Panels */
+  .panel { display: none; animation: fadeSlide 0.4s ease; }
+  .panel.active { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 14px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .card-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .card-icon.blue { background: rgba(37, 99, 235, 0.2); }
+  .card-icon.cyan { background: rgba(6, 182, 212, 0.2); }
+  .card-icon.green { background: rgba(16, 185, 129, 0.2); }
+  .card-icon.red { background: rgba(239, 68, 68, 0.2); }
+  .card-icon.orange { background: rgba(245, 158, 11, 0.2); }
+
+  .card-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .card-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  /* Input Groups */
+  .input-group {
+    margin-bottom: 16px;
+  }
+
+  .input-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(10, 22, 40, 0.8);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    -webkit-appearance: none;
+  }
+
+  .input-field:focus {
+    border-color: var(--blue-accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+
+  .input-field::placeholder {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  .input-hint {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  /* Radio Group */
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(10, 22, 40, 0.6);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .radio-option:has(input:checked) {
+    border-color: var(--blue-accent);
+    background: rgba(37, 99, 235, 0.1);
+  }
+
+  .radio-option input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px; height: 20px;
+    border: 2px solid var(--text-dim);
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .radio-option input[type="radio"]:checked {
+    border-color: var(--blue-accent);
+    background: var(--blue-accent);
+  }
+
+  .radio-option input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px; height: 8px;
+    background: white;
+    border-radius: 50%;
+  }
+
+  .radio-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .radio-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  /* Checkbox */
+  .checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .checkbox-wrapper:has(input:checked) {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: var(--red);
+  }
+
+  .checkbox-wrapper input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    border: 2px solid var(--text-dim);
+    border-radius: 6px;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .checkbox-wrapper input[type="checkbox"]:checked {
+    background: var(--red);
+    border-color: var(--red);
+  }
+
+  .checkbox-wrapper input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .checkbox-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .checkbox-sub {
+    font-size: 11px;
+    color: var(--red);
+    font-weight: 500;
+  }
+
+  /* Results */
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .result-row:last-child { border-bottom: none; }
+
+  .result-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+
+  .result-value {
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .result-value.red { color: var(--red); }
+  .result-value.green { color: var(--green); }
+  .result-value.orange { color: var(--orange); }
+
+  /* CTA Button */
+  .cta-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--blue-accent), var(--cyan));
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .cta-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.25);
+  }
+
+  /* Form */
+  .form-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 14px;
+    backdrop-filter: blur(12px);
+  }
+
+  .form-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .form-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(10, 22, 40, 0.8);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-input:focus {
+    border-color: var(--blue-accent);
+  }
+
+  .form-input::placeholder { color: var(--text-dim); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 24px 0 16px;
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .footer a {
+    color: var(--blue-glow);
+    text-decoration: none;
+  }
+
+  /* NFC Badge */
+  .nfc-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--cyan);
+    margin: 12px auto;
+    width: fit-content;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--green);
+    color: white;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 1000;
+    transition: transform 0.4s ease;
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+    max-width: 90%;
+    text-align: center;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Status Bar Simulation */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 4px 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+
+  /* Pulse animation for live values */
+  .live-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+    margin: 8px 0;
+  }
+
+  /* Metric tags */
+  .metric-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .metric-tag {
+    padding: 4px 10px;
+    background: rgba(37, 99, 235, 0.1);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--blue-glow);
+  }
+
+  @media (max-width: 360px) {
+    .app-container { padding: 8px 12px 80px; }
+    .card { padding: 14px; }
+    .card-value { font-size: 19px; }
+  }
+</style>
 </head>
-<body class="irca-bg text-gray-100 min-h-screen font-sans antialiased">
+<body>
 
-    <!-- Header / Branding Banner with Native Raw Asset Sourcing -->
-    <header class="p-6 max-w-xl mx-auto flex flex-col items-center border-b border-gray-800/60 gap-3 text-center">
-        <div class="w-full flex justify-center py-2">
-            <!-- Directly rendering your raw image repository file asset -->
-            <img src="https://githubusercontent.com" 
-                 alt="IRCA Corporate Logo" 
-                 class="h-16 w-auto object-contain drop-shadow-[0_4px_12px_rgba(59,130,246,0.15)]"
-                 onerror="this.style.display='none'; document.getElementById('fallback-logo').classList.remove('hidden');">
-            <!-- Fallback design layer in case raw branch caching drops -->
-            <div id="fallback-logo" class="hidden text-2xl font-black tracking-wider text-white">IRCA SISTEM</div>
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+
+<div class="app-container">
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span>IRCA Sistem</span>
+    <span id="clockDisplay">--:--</span>
+  </div>
+
+  <!-- Language Selector -->
+  <div class="lang-bar">
+    <button class="lang-btn active" data-lang="ro" onclick="setLanguage('ro')">🇷🇴 Română</button>
+    <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">🇬🇧 English</button>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-container">
+      <img src="https://raw.githubusercontent.com/ghamtech-prog/IRCA-Sistem-Presentation-App/f19bd9688b8eb809627d503a7e79fd9d729fb285/IRCA%20Logo.png" alt="IRCA Sistem Logo" onerror="this.style.display='none'">
+    </div>
+    <div class="header-subtitle" data-i18n="headerSubtitle">Soluții Enterprise Integrate</div>
+    <div class="header-title" data-i18n="headerTitle">Divizia Expansiune Tehnică & Operațiuni Facilități</div>
+    <div class="nfc-badge">
+      <span>📡</span>
+      <span data-i18n="nfcBadge">NFC Business Card Activ</span>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-nav">
+    <button class="tab-btn active" id="btnTabIT" onclick="switchTab('IT')">
+      <span class="tab-icon">💻</span>
+      <span data-i18n="tabIT">Divizia IT</span>
+    </button>
+    <button class="tab-btn" id="btnTabFac" onclick="switchTab('Facilities')">
+      <span class="tab-icon"></span>
+      <span data-i18n="tabFac">Facilități & RSVTI</span>
+    </button>
+  </div>
+
+  <!-- ==================== IT PANEL ==================== -->
+  <div class="panel active" id="panelIT">
+
+    <!-- IT Controls Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon blue">️</div>
+        <div>
+          <div class="card-label" data-i18n="itControlsLabel">Controale Infrastructură IT</div>
         </div>
-        <div class="space-y-0.5">
-            <h1 class="text-xs text-blue-400 font-extrabold tracking-widest uppercase">Integrated Enterprise Solutions Platform</h1>
-            <p class="text-[10px] text-gray-500 uppercase font-mono font-bold">Tech Expansion &amp; Facility Operations Division</p>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label" data-i18n="lblEmployees">Volum Forță de Muncă (Angajați)</label>
+        <input type="number" class="input-field" id="inpEmployees" value="50" min="1" max="10000" inputmode="numeric">
+      </div>
+
+      <div class="input-group">
+        <label class="input-label" data-i18n="lblDrops">Căderi Rețea / Defecțiuni Sistem (Lunar)</label>
+        <input type="number" class="input-field" id="inpDrops" value="3" min="0" max="1000" inputmode="numeric">
+      </div>
+
+      <div class="input-group">
+        <label class="input-label" data-i18n="lblBottleneck">Procese Manuale & Vulnerabilități Workflow</label>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="bottleneck" value="2" checked>
+            <div>
+              <div class="radio-label" data-i18n="bottleneckModern">Modern / Custom Apps</div>
+              <div class="radio-sub" data-i18n="bottleneckModernSub">~2 ore pierdute / angajat / săptămână</div>
+            </div>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="bottleneck" value="8">
+            <div>
+              <div class="radio-label" data-i18n="bottleneckFragmented">Fragmentat / Spreadsheet-uri</div>
+              <div class="radio-sub" data-i18n="bottleneckFragmentedSub">~8 ore pierdute / angajat / săptămână</div>
+            </div>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="bottleneck" value="16">
+            <div>
+              <div class="radio-label" data-i18n="bottleneckLegacy">Legacy / Hârtii</div>
+              <div class="radio-sub" data-i18n="bottleneckLegacySub">~16 ore pierdute / angajat / săptămână</div>
+            </div>
+          </label>
         </div>
-    </header>
+      </div>
+    </div>
 
-    <!-- Tab Selection Navigation Component -->
-    <nav class="max-w-xl mx-auto px-6 mt-5">
-        <div class="grid grid-cols-2 bg-slate-950/80 rounded-xl p-1.5 border border-gray-800/50 shadow-inner">
-            <button id="btnTabIT" onclick="switchTab('IT')" class="py-3 text-sm font-bold tracking-wide rounded-lg text-gray-400 border border-transparent transition-all tab-active">
-                💻 IT Division
-            </button>
-            <button id="btnTabFac" onclick="switchTab('FACILITIES')" class="py-3 text-sm font-bold tracking-wide rounded-lg text-gray-400 border border-transparent transition-all">
-                🏢 Facilities &amp; RSVTI
-            </button>
+    <!-- IT Results Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon red">📊</div>
+        <div>
+          <div class="card-label"><span class="live-dot"></span><span data-i18n="itResultsLabel">Rezultate Analiză IT — Live</span></div>
         </div>
-    </nav>
+      </div>
 
-    <!-- Main Tool Container Space -->
-    <main class="p-6 max-w-xl mx-auto space-y-6 pb-24">
-        
-        <!-- ================= TAB 1: IT MATRIX PANEL ================= -->
-        <section id="panelIT" class="space-y-6">
-            <div class="irca-panel border p-5 rounded-xl space-y-5 shadow-2xl">
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">IT Infrastructure Controls</h3>
-                
-                <!-- IT Metric 1 -->
-                <div class="space-y-2">
-                    <div class="flex justify-between text-sm">
-                        <label class="text-gray-300 font-medium">Workforce Volume (Employees)</label>
-                        <span id="valEmployees" class="text-blue-400 font-bold font-mono">50</span>
-                    </div>
-                    <input type="range" id="inpEmployees" min="5" max="250" value="50" class="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
-                </div>
+      <div class="result-row">
+        <div class="result-label" data-i18n="lblLeakageTitle">Pierderi IT Anuale</div>
+        <div class="result-value red" id="outLeakage">0 RON</div>
+      </div>
+      <div class="result-row">
+        <div class="result-label" data-i18n="lblSavingsTitle">Capital Reținut IRCA (Optimizare 35%)</div>
+        <div class="result-value green" id="outSavings">0 RON</div>
+      </div>
 
-                <!-- IT Metric 2 -->
-                <div class="space-y-2">
-                    <div class="flex justify-between text-sm">
-                        <label class="text-gray-300 font-medium">Network Drops / System Crashes (Monthly)</label>
-                        <span id="valDrops" class="text-blue-400 font-bold font-mono">3</span>
-                    </div>
-                    <input type="range" id="inpDrops" min="0" max="12" value="3" class="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
-                </div>
+      <div class="metric-tags">
+        <span class="metric-tag" data-i18n="tagNetworkCost">Cost Rețea</span>
+        <span class="metric-tag" data-i18n="tagWorkflowCost">Cost Workflow</span>
+        <span class="metric-tag" data-i18n="tagRecovery">Recuperare 35%</span>
+      </div>
+    </div>
 
-                <!-- IT Metric 3 -->
-                <div class="space-y-3">
-                    <label class="block text-sm text-gray-300 font-medium">Manual Processes &amp; Workflow Vulnerabilities</label>
-                    <div class="grid grid-cols-3 gap-2">
-                        <label class="cursor-pointer border border-gray-800 bg-gray-950 p-2.5 rounded-lg text-center text-xs block hover:border-blue-500 transition-all">
-                            <input type="radio" name="bottleneck" value="2" checked class="sr-only peer">
-                            <span class="text-gray-400 peer-checked:text-blue-400 font-semibold block">Modern</span>
-                            <span class="text-[10px] text-gray-500 block">Custom Apps</span>
-                        </label>
-                        <label class="cursor-pointer border border-gray-800 bg-gray-950 p-2.5 rounded-lg text-center text-xs block hover:border-blue-500 transition-all">
-                            <input type="radio" name="bottleneck" value="6" class="sr-only peer">
-                            <span class="text-gray-400 peer-checked:text-blue-400 font-semibold block">Fragmented</span>
-                            <span class="text-[10px] text-gray-500 block">Spreadsheets</span>
-                        </label>
-                        <label class="cursor-pointer border border-gray-800 bg-gray-950 p-2.5 rounded-lg text-center text-xs block hover:border-blue-500 transition-all">
-                            <input type="radio" name="bottleneck" value="15" class="sr-only peer">
-                            <span class="text-gray-400 peer-checked:text-blue-400 font-semibold block">Legacy</span>
-                            <span class="text-[10px] text-gray-500 block">Paper-Heavy</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- IT CTA -->
+    <button class="cta-btn" onclick="scrollToForm('IT')">
+      <span>📋</span>
+      <span data-i18n="ctaIT">Solicită Evaluare Analitică Completă</span>
+    </button>
 
-        <!-- ================= TAB 2: FACILITIES PANEL ================= -->
-        <section id="panelFacilities" class="space-y-6 hidden">
-            <div class="irca-panel border p-5 rounded-xl space-y-5 shadow-2xl">
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">Facility &amp; Equipment Safety Controls</h3>
-                
-                <!-- Facility Metric 1 -->
-                <div class="space-y-2">
-                    <div class="flex justify-between text-sm">
-                        <label class="text-gray-300 font-medium">Facility Footprint (Sqm Area)</label>
-                        <span id="valSqm" class="text-blue-400 font-bold font-mono">2,500</span>
-                    </div>
-                    <input type="range" id="inpSqm" min="200" max="25000" step="100" value="2500" class="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
-                </div>
+  </div>
 
-                <!-- Facility Metric 2 -->
-                <div class="space-y-2">
-                    <div class="flex justify-between text-sm">
-                        <label class="text-gray-300 font-medium">Average Boiler / Boiler-Room Equipment Age</label>
-                        <span id="valAge" class="text-blue-400 font-bold font-mono">4 Years</span>
-                    </div>
-                    <input type="range" id="inpAge" min="0" max="20" value="4" class="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
-                </div>
+  <!-- ==================== FACILITIES PANEL ==================== -->
+  <div class="panel" id="panelFacilities">
 
-                <!-- Facility Metric 3 -->
-                <div class="space-y-3">
-                    <label class="block text-sm text-gray-300 font-medium">Regulatory Status (ISCIR / RSVTI Execution)</label>
-                    <label class="flex items-center gap-3 cursor-pointer bg-gray-950 border border-gray-800 p-3.5 rounded-lg hover:border-red-500/50 transition-all select-none">
-                        <input type="checkbox" id="chkRsvti" class="w-4 h-4 bg-gray-900 border-gray-700 rounded text-blue-500 focus:ring-blue-500 accent-blue-500">
-                        <div>
-                            <span class="text-xs font-semibold block text-gray-200">No Authorized RSVTI Operator Assigned</span>
-                            <span class="text-[10px] text-red-400 block font-medium">Exposes facility to immediate ISCIR fines up to 25,000 RON</span>
-                        </div>
-                    </label>
-                </div>
-            </div>
-        </section>
+    <!-- Facilities Controls Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon cyan">🏭</div>
+        <div>
+          <div class="card-label" data-i18n="facControlsLabel">Controale Siguranță Facilități & Echipamente</div>
+        </div>
+      </div>
 
-        <!-- Real-Time Metrics Output Segment -->
-        <section class="grid grid-cols-2 gap-4">
-            <div class="bg-gray-950/60 border border-gray-800/80 p-4 rounded-xl text-center">
-                <span id="lblRiskTitle" class="text-[10px] uppercase tracking-wider text-gray-400 font-bold">Annual IT Leakage</span>
-                <div id="outLeakage" class="text-lg font-extrabold text-red-400 font-mono mt-1">0 RON</div>
-            </div>
-            <div class="bg-blue-950/20 border border-blue-900/40 p-4 rounded-xl text-center">
-                <span id="lblSavingsTitle" class="text-[10px] uppercase tracking-wider text-blue-400 font-bold">IRCA Retained Capital</span>
-                <div id="outSavings" class="text-lg font-extrabold text-emerald-400 font-mono mt-1">0 RON</div>
-            </div>
-        </section>
+      <div class="input-group">
+        <label class="input-label" data-i18n="lblSqm">Suprafață Facilitate (mp)</label>
+        <input type="number" class="input-field" id="inpSqm" value="2500" min="1" max="100000" inputmode="numeric">
+      </div>
 
-        <!-- B2B Strategic Conversion & CRM Form Hook -->
-        <section class="irca-panel border border-blue-900/30 p-5 rounded-xl space-y-4 shadow-xl">
-            <div class="space-y-1">
-                <h3 id="txtFormHeader" class="text-sm font-bold text-white">Secure IT Architecture Optimization Blueprint</h3>
+      <div class="input-group">
+        <label class="input-label" data-i18n="lblAge">Vârsta Medie Echipamente Cazan / Centrală (Ani)</label>
+        <input type="number" class="input-field" id="inpAge" value="4" min="0" max="50" inputmode="numeric">
+      </div>
 
-Receive an engineering breakdown mapping system stabilization parameters, code auditing workflows, and physical hardware layouts.
+      <div class="input-group">
+        <label class="checkbox-wrapper">
+          <input type="checkbox" id="chkRsvti">
+          <div>
+            <div class="checkbox-label" data-i18n="lblRsvti">Fără Operator RSVTI Autorizat</div>
+            <div class="checkbox-sub" data-i18n="lblRsvtiSub">Expune facilitatea la amenzi ISCIR de până la 25.000 RON</div>
+          </div>
+        </label>
+      </div>
+    </div>
 
+    <!-- Facilities Results Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon orange">️</div>
+        <div>
+          <div class="card-label"><span class="live-dot"></span><span data-i18n="facResultsLabel">Rezultate Analiză Facilități — Live</span></div>
+        </div>
+      </div>
 
+      <div class="result-row">
+        <div class="result-label" data-i18n="lblFacExposure">Expunere Financiară Facilitate</div>
+        <div class="result-value red" id="outFacLeakage">0 RON</div>
+      </div>
+      <div class="result-row">
+        <div class="result-label" data-i18n="lblFacSavings">Deficit Risc Gestionat (Reducere 28%)</div>
+        <div class="result-value green" id="outFacSavings">0 RON</div>
+      </div>
 
+      <div class="metric-tags">
+        <span class="metric-tag" data-i18n="tagStructural">Risc Structural</span>
+        <span class="metric-tag" data-i18n="tagDepreciation">Depreciere Echipamente</span>
+        <span class="metric-tag" data-i18n="tagCompliance">Penalizare Conformitate</span>
+      </div>
+    </div>
 
-Request Full Analytical Assessment
+    <!-- Facilities CTA -->
+    <button class="cta-btn" onclick="scrollToForm('Facilities')">
+      <span>🔍</span>
+      <span data-i18n="ctaFac">Solicită Audit Siguranță Facilitate Fizică</span>
+    </button>
 
+  </div>
 
+  <!-- ==================== LEAD FORM ==================== -->
+  <div class="form-card" id="leadFormCard">
+    <div class="form-title" id="txtFormHeader" data-i18n="formHeaderIT">Plan Optimizare Arhitectură IT Securizată</div>
+    <div class="form-sub" id="txtFormSub" data-i18n="formSubIT">Primiți o analiză tehnică detaliată cu parametri de stabilizare sistem, fluxuri de audit cod și layout-uri hardware fizice.</div>
 
+    <form id="leadForm" onsubmit="handleSubmit(event)">
+      <input type="text" class="form-input" id="inpName" placeholder="Nume Complet" data-i18n-placeholder="phName" required>
+      <input type="email" class="form-input" id="inpEmail" placeholder="Email Corporativ" data-i18n-placeholder="phEmail" required>
+      <input type="tel" class="form-input" id="inpPhone" placeholder="Telefon" data-i18n-placeholder="phPhone" inputmode="tel">
+      <input type="text" class="form-input" id="inpCompany" placeholder="Companie" data-i18n-placeholder="phCompany">
+      <button type="submit" class="cta-btn" style="margin-top: 6px;">
+        <span>🚀</span>
+        <span data-i18n="btnSubmit">Trimite Profilul Strategic</span>
+      </button>
+    </form>
+  </div>
 
+  <!-- Footer -->
+  <div class="footer">
+    <div>© 2025 IRCA Sistem SRL</div>
+    <div data-i18n="footerText">Soluții Enterprise Integrate | Divizia IT & Facilități</div>
+    <div style="margin-top: 6px;">
+      <a href="https://github.com/ghamtech-prog/IRCA-Sistem-Presentation-App" target="_blank">GitHub Repository</a>
+    </div>
+  </div>
 
+</div>
 
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== TRANSLATIONS ====================
+const translations = {
+  ro: {
+    headerSubtitle: "Soluții Enterprise Integrate",
+    headerTitle: "Divizia Expansiune Tehnică & Operațiuni Facilități",
+    nfcBadge: "NFC Business Card Activ",
+    tabIT: "Divizia IT",
+    tabFac: "Facilități & RSVTI",
+    itControlsLabel: "Controale Infrastructură IT",
+    lblEmployees: "Volum Forță de Muncă (Angajați)",
+    lblDrops: "Căderi Rețea / Defecțiuni Sistem (Lunar)",
+    lblBottleneck: "Procese Manuale & Vulnerabilități Workflow",
+    bottleneckModern: "Modern / Custom Apps",
+    bottleneckModernSub: "~2 ore pierdute / angajat / săptămână",
+    bottleneckFragmented: "Fragmentat / Spreadsheet-uri",
+    bottleneckFragmentedSub: "~8 ore pierdute / angajat / săptămână",
+    bottleneckLegacy: "Legacy / Hârtii",
+    bottleneckLegacySub: "~16 ore pierdute / angajat / săptămână",
+    itResultsLabel: "Rezultate Analiză IT — Live",
+    lblLeakageTitle: "Pierderi IT Anuale",
+    lblSavingsTitle: "Capital Reținut IRCA (Optimizare 35%)",
+    tagNetworkCost: "Cost Rețea",
+    tagWorkflowCost: "Cost Workflow",
+    tagRecovery: "Recuperare 35%",
+    ctaIT: "Solicită Evaluare Analitică Completă",
+    facControlsLabel: "Controale Siguranță Facilități & Echipamente",
+    lblSqm: "Suprafață Facilitate (mp)",
+    lblAge: "Vârsta Medie Echipamente Cazan / Centrală (Ani)",
+    lblRsvti: "Fără Operator RSVTI Autorizat",
+    lblRsvtiSub: "Expune facilitatea la amenzi ISCIR de până la 25.000 RON",
+    facResultsLabel: "Rezultate Analiză Facilități — Live",
+    lblFacExposure: "Expunere Financiară Facilitate",
+    lblFacSavings: "Deficit Risc Gestionat (Reducere 28%)",
+    tagStructural: "Risc Structural",
+    tagDepreciation: "Depreciere Echipamente",
+    tagCompliance: "Penalizare Conformitate",
+    ctaFac: "Solicită Audit Siguranță Facilitate Fizică",
+    formHeaderIT: "Plan Optimizare Arhitectură IT Securizată",
+    formSubIT: "Primiți o analiză tehnică detaliată cu parametri de stabilizare sistem, fluxuri de audit cod și layout-uri hardware fizice.",
+    formHeaderFac: "Solicită Audit Siguranță Facilitate Fizică",
+    formSubFac: "Programează o evaluare structurală fizică pentru a revizui pipeline-urile de mentenanță tehnică industrială și a verifica parametrii de conformitate ai operatorului ISCIR.",
+    btnSubmit: "Trimite Profilul Strategic",
+    phName: "Nume Complet",
+    phEmail: "Email Corporativ",
+    phPhone: "Telefon",
+    phCompany: "Companie",
+    footerText: "Soluții Enterprise Integrate | Divizia IT & Facilități",
+    toastSuccess: "Profil Strategic Procesat. Dosarul de optimizare IRCA Sistem este compilat și trimis către adresa dvs.",
+    toastSuccessFac: "Profil Strategic Procesat. Dosarul de audit facilitate IRCA Sistem este compilat și trimis către adresa dvs.",
+    riskTitleIT: "Pierderi IT Anuale",
+    savingsTitleIT: "Capital Reținut IRCA",
+    riskTitleFac: "Expunere Financiară Facilitate",
+    savingsTitleFac: "Deficit Risc Gestionat"
+  },
+  en: {
+    headerSubtitle: "Integrated Enterprise Solutions",
+    headerTitle: "Tech Expansion & Facility Operations Division",
+    nfcBadge: "NFC Business Card Active",
+    tabIT: "IT Division",
+    tabFac: "Facilities & RSVTI",
+    itControlsLabel: "IT Infrastructure Controls",
+    lblEmployees: "Workforce Volume (Employees)",
+    lblDrops: "Network Drops / System Crashes (Monthly)",
+    lblBottleneck: "Manual Processes & Workflow Vulnerabilities",
+    bottleneckModern: "Modern / Custom Apps",
+    bottleneckModernSub: "~2 hours lost / employee / week",
+    bottleneckFragmented: "Fragmented / Spreadsheets",
+    bottleneckFragmentedSub: "~8 hours lost / employee / week",
+    bottleneckLegacy: "Legacy / Paper-Heavy",
+    bottleneckLegacySub: "~16 hours lost / employee / week",
+    itResultsLabel: "IT Analysis Results — Live",
+    lblLeakageTitle: "Annual IT Leakage",
+    lblSavingsTitle: "IRCA Retained Capital (35% Optimization)",
+    tagNetworkCost: "Network Cost",
+    tagWorkflowCost: "Workflow Cost",
+    tagRecovery: "35% Recovery",
+    ctaIT: "Request Full Analytical Assessment",
+    facControlsLabel: "Facility & Equipment Safety Controls",
+    lblSqm: "Facility Footprint (Sqm Area)",
+    lblAge: "Average Boiler / Boiler-Room Equipment Age (Years)",
+    lblRsvti: "No Authorized RSVTI Operator Assigned",
+    lblRsvtiSub: "Exposes facility to immediate ISCIR fines up to 25,000 RON",
+    facResultsLabel: "Facilities Analysis Results — Live",
+    lblFacExposure: "Facility Financial Exposure",
+    lblFacSavings: "Managed Risk Deficit (28% Reduction)",
+    tagStructural: "Structural Risk",
+    tagDepreciation: "Equipment Depreciation",
+    tagCompliance: "Compliance Penalty",
+    ctaFac: "Request Physical Facility Safety Audit",
+    formHeaderIT: "Secure IT Architecture Optimization Blueprint",
+    formSubIT: "Receive an engineering breakdown mapping system stabilization parameters, code auditing workflows, and physical hardware layouts.",
+    formHeaderFac: "Request Physical Facility Safety Audit",
+    formSubFac: "Schedule a physical structural evaluation to review industrial technical maintenance pipelines and verify ISCIR operator regulatory parameters.",
+    btnSubmit: "Submit Strategic Profile",
+    phName: "Full Name",
+    phEmail: "Corporate Email",
+    phPhone: "Phone",
+    phCompany: "Company",
+    footerText: "Integrated Enterprise Solutions | IT & Facilities Division",
+    toastSuccess: "Strategic Profile Parsed. The specific IRCA Sistem IT optimization dossier is being compiled and sent to your address.",
+    toastSuccessFac: "Strategic Profile Parsed. The specific IRCA Sistem facility audit dossier is being compiled and sent to your address.",
+    riskTitleIT: "Annual IT Leakage",
+    savingsTitleIT: "IRCA Retained Capital",
+    riskTitleFac: "Facility Financial Exposure",
+    savingsTitleFac: "Managed Risk Deficit"
+  }
+};
+
+let currentLang = 'ro';
 let currentTab = 'IT';
-// Element Selection Maps
-const panelIT = document.getElementById('panelIT');
-const panelFacilities = document.getElementById('panelFacilities');
-const btnTabIT = document.getElementById('btnTabIT');
-const btnTabFac = document.getElementById('btnTabFac');
-const lblRiskTitle = document.getElementById('lblRiskTitle');
-const lblSavingsTitle = document.getElementById('lblSavingsTitle');
-const txtFormHeader = document.getElementById('txtFormHeader');
-const txtFormSub = document.getElementById('txtFormSub');
-// Inputs Configuration
-const inpEmployees = document.getElementById('inpEmployees');
-const inpDrops = document.getElementById('inpDrops');
-const inpSqm = document.getElementById('inpSqm');
-const inpAge = document.getElementById('inpAge');
-const chkRsvti = document.getElementById('chkRsvti');
-// Text Feedback UI Targets
-const valEmployees = document.getElementById('valEmployees');
-const valDrops = document.getElementById('valDrops');
-const valSqm = document.getElementById('valSqm');
-const valAge = document.getElementById('valAge');
-const outLeakage = document.getElementById('outLeakage');
-const outSavings = document.getElementById('outSavings');
-function formatRON(val) {
-return new Intl.NumberFormat('ro-RO', { style: 'currency', currency: 'RON', maximumFractionDigits: 0 }).format(val);
-}
-function switchTab(target) {
-currentTab = target;
-if(target === 'IT') {
-panelIT.classList.remove('hidden');
-panelFacilities.classList.add('hidden');
-btnTabIT.classList.add('tab-active');
-btnTabFac.classList.remove('tab-active');
-lblRiskTitle.innerText = "Annual IT Leakage";
-lblSavingsTitle.innerText = "IRCA Retained Capital";
-txtFormHeader.innerText = "Secure IT Architecture Optimization Blueprint";
-txtFormSub.innerText = "Receive an engineering breakdown mapping system stabilization parameters, code auditing workflows, and physical hardware layouts.";
-} else {
-panelIT.classList.add('hidden');
-panelFacilities.classList.remove('hidden');
-btnTabIT.classList.remove('tab-active');
-btnTabFac.classList.add('tab-active');
-lblRiskTitle.innerText = "Facility Financial Exposure";
-lblSavingsTitle.innerText = "Managed Risk Deficit";
-txtFormHeader.innerText = "Request Physical Facility Safety Audit";
-txtFormSub.innerText = "Schedule a physical structural evaluation to review industrial technical maintenance pipelines and verify ISCIR operator regulatory parameters.";
-}
-runCalculations();
-}
-function runCalculations() {
-if(currentTab === 'IT') {
-const E = parseInt(inpEmployees.value);
-const D = parseInt(inpDrops.value);
-valEmployees.innerText = E;
-valDrops.innerText = D;
-const checkedRadio = document.querySelector('input[name="bottleneck"]:checked');
-const bottleneckHours = checkedRadio ? parseInt(checkedRadio.value) : 2;
-const networkCost = D * 0.5 * E * 45 * 12;
-const workflowCost = bottleneckHours * E * 45 * 12;
-const totalITLeakage = networkCost + workflowCost;
-const optimizedSavings = totalITLeakage * 0.35;
-outLeakage.innerText = formatRON(totalITLeakage);
-outSavings.innerText = formatRON(optimizedSavings);
-} else {
-const Sqm = parseInt(inpSqm.value);
-const Age = parseInt(inpAge.value);
-valSqm.innerText = Sqm.toLocaleString('ro-RO');
-valAge.innerText = Age + (Age === 1 ? " Year" : " Years");
-let structuralRisk = (Sqm * 15) + (Age * 5200);
-if(chkRsvti.checked) {
-structuralRisk += 25000;
-}
-const facilitiesSavingsBenefit = structuralRisk * 0.28;
-outLeakage.innerText = formatRON(structuralRisk);
-outSavings.innerText = formatRON(facilitiesSavingsBenefit);
-}
-}
-// Attach Global DOM Configuration Observers
-inpEmployees.addEventListener('input', runCalculations);
-inpDrops.addEventListener('input', runCalculations);
-inpSqm.addEventListener('input', runCalculations);
-inpAge.addEventListener('input', runCalculations);
-chkRsvti.addEventListener('change', runCalculations);
-document.querySelectorAll('input[name="bottleneck"]').forEach(r => r.addEventListener('change', runCalculations));
-document.getElementById('leadForm').addEventListener('submit', (e) => {
-e.preventDefault();
-alert(Strategic Profile Parsed. The specific IRCA Sistem ${currentTab} optimization dossier is being compiled and sent to your address.);
-});
-// Bootstrap Core Frame State
-runCalculations();
 
+// ==================== LANGUAGE ====================
+function setLanguage(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+
+  // Update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+
+  // Update placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (translations[lang][key]) {
+      el.placeholder = translations[lang][key];
+    }
+  });
+
+  // Update form header based on current tab
+  updateFormText();
+  runCalculations();
+}
+
+function updateFormText() {
+  const t = translations[currentLang];
+  const header = document.getElementById('txtFormHeader');
+  const sub = document.getElementById('txtFormSub');
+  if (currentTab === 'IT') {
+    header.textContent = t.formHeaderIT;
+    sub.textContent = t.formSubIT;
+  } else {
+    header.textContent = t.formHeaderFac;
+    sub.textContent = t.formSubFac;
+  }
+}
+
+// ==================== TAB SWITCHING ====================
+function switchTab(target) {
+  currentTab = target;
+  const panelIT = document.getElementById('panelIT');
+  const panelFac = document.getElementById('panelFacilities');
+  const btnIT = document.getElementById('btnTabIT');
+  const btnFac = document.getElementById('btnTabFac');
+
+  if (target === 'IT') {
+    panelIT.classList.add('active');
+    panelFac.classList.remove('active');
+    btnIT.classList.add('active');
+    btnFac.classList.remove('active');
+  } else {
+    panelIT.classList.remove('active');
+    panelFac.classList.add('active');
+    btnIT.classList.remove('active');
+    btnFac.classList.add('active');
+  }
+
+  updateFormText();
+  runCalculations();
+}
+
+// ==================== CALCULATIONS ====================
+function formatRON(val) {
+  return new Intl.NumberFormat('ro-RO', { style: 'currency', currency: 'RON', maximumFractionDigits: 0 }).format(val);
+}
+
+function runCalculations() {
+  if (currentTab === 'IT') {
+    const E = parseInt(document.getElementById('inpEmployees').value) || 0;
+    const D = parseInt(document.getElementById('inpDrops').value) || 0;
+    const checkedRadio = document.querySelector('input[name="bottleneck"]:checked');
+    const bottleneckHours = checkedRadio ? parseInt(checkedRadio.value) : 2;
+
+    const networkCost = D * 0.5 * E * 45 * 12;
+    const workflowCost = bottleneckHours * E * 45 * 12;
+    const totalITLeakage = networkCost + workflowCost;
+    const optimizedSavings = totalITLeakage * 0.35;
+
+    document.getElementById('outLeakage').textContent = formatRON(totalITLeakage);
+    document.getElementById('outSavings').textContent = formatRON(optimizedSavings);
+  } else {
+    const Sqm = parseInt(document.getElementById('inpSqm').value) || 0;
+    const Age = parseInt(document.getElementById('inpAge').value) || 0;
+    const chkRsvti = document.getElementById('chkRsvti').checked;
+
+    let structuralRisk = (Sqm * 15) + (Age * 5200);
+    if (chkRsvti) {
+      structuralRisk += 25000;
+    }
+    const facilitiesSavingsBenefit = structuralRisk * 0.28;
+
+    document.getElementById('outFacLeakage').textContent = formatRON(structuralRisk);
+    document.getElementById('outFacSavings').textContent = formatRON(facilitiesSavingsBenefit);
+  }
+}
+
+// ==================== FORM ====================
+function scrollToForm(tab) {
+  document.getElementById('leadFormCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const t = translations[currentLang];
+  const msg = currentTab === 'IT' ? t.toastSuccess : t.toastSuccessFac;
+  showToast(msg);
+  e.target.reset();
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 4000);
+}
+
+// ==================== CLOCK ====================
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  document.getElementById('clockDisplay').textContent = h + ':' + m;
+}
+
+// ==================== EVENT LISTENERS ====================
+document.getElementById('inpEmployees').addEventListener('input', runCalculations);
+document.getElementById('inpDrops').addEventListener('input', runCalculations);
+document.getElementById('inpSqm').addEventListener('input', runCalculations);
+document.getElementById('inpAge').addEventListener('input', runCalculations);
+document.getElementById('chkRsvti').addEventListener('change', runCalculations);
+document.querySelectorAll('input[name="bottleneck"]').forEach(r => r.addEventListener('change', runCalculations));
+
+// ==================== INIT ====================
+updateClock();
+setInterval(updateClock, 30000);
+runCalculations();
+</script>
+
+</body>
+</html>
